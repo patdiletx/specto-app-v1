@@ -7,18 +7,19 @@ import { useAuth } from '../context/AuthContext';
 import MapScreen from '../screens/MapScreen';
 import AccountScreen from '../screens/AccountScreen';
 import MissionsListScreen from '../screens/MissionsListScreen';
-import MissionInProgressScreen from '../screens/MissionInProgressScreen'; // Importamos la nueva pantalla
+import MissionInProgressScreen from '../screens/MissionInProgressScreen';
+import StreamingScreen from '../screens/StreamingScreen'; // <-- Importamos la nueva pantalla
 
 const Tab = createBottomTabNavigator();
 const MissionStack = createNativeStackNavigator();
 
-// Creamos un Stack Navigator para el flujo de Misiones
-// Esto nos permitirá navegar desde la lista a los detalles de una misión.
 function MissionStackNavigator() {
   return (
     <MissionStack.Navigator>
       <MissionStack.Screen name="MissionsList" component={MissionsListScreen} options={{ title: 'Misiones Disponibles' }} />
       <MissionStack.Screen name="MissionInProgress" component={MissionInProgressScreen} options={{ title: 'Misión en Progreso' }} />
+      {/* AÑADIMOS LA PANTALLA DE STREAMING AL STACK */}
+      <MissionStack.Screen name="Streaming" component={StreamingScreen} options={{ headerShown: false }} />
     </MissionStack.Navigator>
   );
 }
@@ -37,7 +38,6 @@ export default function AppNavigator() {
         }}
       >
         <Tab.Screen name="Mapa" component={MapScreen} />
-        {/* La pestaña "Misiones" ahora renderiza nuestro nuevo Stack Navigator */}
         <Tab.Screen name="Misiones" component={MissionStackNavigator} />
         <Tab.Screen name="Perfil" component={AccountScreenWrapper} />
       </Tab.Navigator>
